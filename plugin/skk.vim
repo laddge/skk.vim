@@ -3634,7 +3634,7 @@ endfunction
 
 function! s:SkkSaveJisyo(confirm, silent)
   if !exists("s:skk_jisyo_fsize")
-    if !a:silent
+    if !a:silent && !g:skk_silent_save_jisyo
       echo "No need to save SKK jisyo"
     endif
     return
@@ -3680,7 +3680,7 @@ function! s:SkkSaveJisyo(confirm, silent)
       if a:confirm && confirm("Do you want to save " . g:skk_jisyo . "?", "&yes\n&no") != 1
         return
       endif
-      if !a:silent
+      if !a:silent && !g:skk_silent_save_jisyo
         echo "Saving SKK jisyo..."
       endif
       if filereadable(jisyo)
@@ -3698,14 +3698,14 @@ function! s:SkkSaveJisyo(confirm, silent)
       let s:skk_jisyo_ftime = getftime(jisyo)
       let s:skk_jisyo_fsize = jisyosize
       let s:skk_jisyo_modified = 0
-      if !a:silent
+      if !a:silent && !g:skk_silent_save_jisyo
         echon "\rSaving SKK jisyo...done"
       endif
     finally
       exe cmd
     endtry
   else
-    if !a:silent
+    if !a:silent && !g:skk_silent_save_jisyo
       echo "No need to save SKK jisyo"
     endif
   endif
